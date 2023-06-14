@@ -1,4 +1,15 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
+import { StandingsService } from './standings.service';
+import { RacingDto } from './dtos/racing.dto';
+import { Serialize } from 'src/interceptors/serialize.interceptor';
 
 @Controller('standings')
-export class StandingsController {}
+@Serialize(RacingDto)
+export class StandingsController {
+  constructor(private standingsService: StandingsService) {}
+
+  @Get()
+  getEstimate() {
+    return this.standingsService.getRacing();
+  }
+}
