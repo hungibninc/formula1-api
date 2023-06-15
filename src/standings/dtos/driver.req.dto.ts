@@ -23,11 +23,22 @@ export class DriverReqDto {
   @ApiPropertyOptional({
     type: String,
     description:
-      'This is the name of the Grand-Prix and can be optional. Result will be searched on all Grand-Prix if empty',
-    default: 'bahrain',
+      'This is the name of the races and can be optional. Result will be searched on all races if empty',
+    default: 'Bahrain',
   })
   @Transform(({ value }) => value.toLowerCase())
   @IsString()
   @IsOptional()
-  name: string;
+  grand_name: string;
+
+  @ApiPropertyOptional({
+    type: String,
+    description:
+      'This is the name of the driver and can be optional. Result will be searched on all drivers if empty',
+    default: 'Alexander Albon',
+  })
+  @Transform(({ value }) => value.toLowerCase())
+  @IsString()
+  @IsOptional()
+  driver_name: string;
 }

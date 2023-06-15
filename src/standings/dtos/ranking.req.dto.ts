@@ -4,11 +4,10 @@ import { Transform } from 'class-transformer';
 
 const date = new Date();
 
-export class GrandPrixReqDto {
+export class RankingReqDto {
   @ApiProperty({
     type: Number,
-    description:
-      'It is required and will be ' + date.getFullYear() + ' if empty',
+    description: 'It will be ' + date.getFullYear() + ' if empty',
     default: date.getFullYear(),
   })
   @IsNumber()
@@ -20,8 +19,16 @@ export class GrandPrixReqDto {
 
   @ApiPropertyOptional({
     type: String,
+    description: 'Name of the races and it is optional.',
+  })
+  @Transform(({ value }) => value.toLowerCase())
+  @IsString()
+  @IsOptional()
+  grand_name: string;
+
+  @ApiPropertyOptional({
+    type: String,
     description: 'Name of the driver and it is optional.',
-    default: 'Max Verstappen',
   })
   @Transform(({ value }) => value.toLowerCase())
   @IsString()

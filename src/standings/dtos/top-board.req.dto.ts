@@ -1,16 +1,14 @@
 import { IsOptional, Min, Max, IsNumber } from 'class-validator';
-import { ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 
 const date = new Date();
 
 export class TopBoardReqDto {
-  @ApiPropertyOptional({
+  @ApiProperty({
     type: Number,
     description:
-      'This is an optional property. It will be ' +
-      date.getFullYear() +
-      ' if empty',
+      'It is required and will be ' + date.getFullYear() + ' if empty',
     default: date.getFullYear(),
   })
   @IsNumber()

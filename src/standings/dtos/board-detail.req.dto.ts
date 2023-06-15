@@ -8,7 +8,7 @@ export class BoardDetailReqDto {
   @ApiPropertyOptional({
     type: Number,
     description:
-      'This is the year of the Grand-Prix. It will be ' +
+      'This is the year of the races. It will be ' +
       date.getFullYear() +
       ' if empty',
     default: date.getFullYear(),
@@ -23,7 +23,7 @@ export class BoardDetailReqDto {
   @ApiPropertyOptional({
     type: String,
     description:
-      'This is the name of the Grand-Prix and can be optional. Result will be searched on all Grand-Prix if empty',
+      'This is the name of the races and can be optional. Result will be searched on all races if empty.',
     default: 'bahrain',
   })
   @Transform(({ value }) => value.toLowerCase())

@@ -1,25 +1,35 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { AppService } from './app.service';
 import { StandingsService } from './standings/standings.service';
 import { ApiResponse } from '@nestjs/swagger';
 import { Serialize } from './interceptors/serialize.interceptor';
 import { GrandPrixResDto } from './standings/dtos/grand-prix.res.dto';
 import { GrandPrixReqDto } from './standings/dtos/grand-prix.req.dto';
+import { DriverListReqDto } from './standings/dtos/driver.list.req.dto';
+import { DriverListResDto } from './standings/dtos/driver.list.res.dto';
 
 @Controller()
 export class AppController {
-  constructor(
-    private readonly appService: AppService,
-    private readonly standingsService: StandingsService,
-  ) {}
+  constructor(private readonly standingsService: StandingsService) {}
 
   @Get()
   @ApiResponse({
     status: 200,
-    description: 'Returns all name Grand-Prix by year.',
+    description:
+      "Returns the names of the races filtered by year or the participating driver's name.",
   })
   @Serialize(GrandPrixResDto)
   getRacing(@Query() query: GrandPrixReqDto) {
     return this.standingsService.getGrandPrix(query);
+  }
+
+  @Get('driver')
+  @ApiResponse({
+    status: 200,
+    description:
+      "Returns the name of participating drivers filtered by year or races's name.",
+  })
+  @Serialize(DriverListResDto)
+  getDriver(@Query() query: DriverListReqDto) {
+    return this.standingsService.getDriver(query);
   }
 }
