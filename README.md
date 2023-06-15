@@ -22,52 +22,67 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Introduction
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This RESTFUL API is using [Nest](https://github.com/nestjs/nest) framework and [MySQL](https://www.mysql.com) database to display F1 racing results.
 
-## Installation
+### Features
+- List of Races
+- List of Drivers
+- Race Results
+- Driver Standings
+
+## Prerequisites
+
+- Node v18.10.0
+- Git bash
+- MySQL
+
+## Installation & Configuration
+
+To get a local copy up and running, follow these simple steps.
+
+### Get files
+
+Go to the directory where you want to copy the project files and clone it by copying this text into your command prompt/terminal:
+
+```
+  git clone git@github.com:hungibninc/formula1-api.git
+```
+### Install Dependencies
 
 ```bash
-$ yarn install
+$ yarn
 ```
+
+### Config database
+
+- Create a MySQL database for this api
+- Open ormconfig.js file in the root directory and update the following information that corresponds to your database
+
+```bash
+database: 'change_to_your_database_name',
+username: 'change_to_your_database_username',
+password: 'change_to_your_database_password',
+```
+
+- Open command prompt/terminal and go to the root directory then run this command for migration database:
+
+```bash
+yarn typeorm migration:run -- -d ./data-source.ts
+```
+
+- Import sample data from sample-data.sql file in the root directory
 
 ## Running the app
 
 ```bash
 # development
-$ yarn run start
+$ yarn start
 
 # watch mode
-$ yarn run start:dev
+$ yarn start:dev
 
 # production mode
-$ yarn run start:prod
+$ yarn start:prod
 ```
-
-## Test
-
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).

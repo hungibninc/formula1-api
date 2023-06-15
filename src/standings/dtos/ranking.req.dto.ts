@@ -7,7 +7,7 @@ const date = new Date();
 export class RankingReqDto {
   @ApiProperty({
     type: Number,
-    description: 'It will be ' + date.getFullYear() + ' if empty',
+    description: 'This is required.',
     default: date.getFullYear(),
   })
   @IsNumber()

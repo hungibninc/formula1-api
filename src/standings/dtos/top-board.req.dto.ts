@@ -7,8 +7,7 @@ const date = new Date();
 export class TopBoardReqDto {
   @ApiProperty({
     type: Number,
-    description:
-      'It is required and will be ' + date.getFullYear() + ' if empty',
+    description: 'This is required.',
     default: date.getFullYear(),
   })
   @IsNumber()
