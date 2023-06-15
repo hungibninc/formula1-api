@@ -33,7 +33,7 @@ export class Standing {
   position: string;
 
   @Column()
-  ranking: number;
+  license_plate: number;
 
   @Column()
   laps: number;

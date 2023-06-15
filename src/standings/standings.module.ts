@@ -8,5 +8,6 @@ import { Standing } from './standing.entity';
   imports: [TypeOrmModule.forFeature([Standing])],
   providers: [StandingsService],
   controllers: [StandingsController],
+  exports: [StandingsService],
 })
 export class StandingsModule {}

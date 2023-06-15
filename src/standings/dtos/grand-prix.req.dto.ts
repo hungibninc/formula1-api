@@ -4,7 +4,7 @@ import { Transform } from 'class-transformer';
 
 const date = new Date();
 
-export class TopBoardReqDto {
+export class GrandPrixReqDto {
   @ApiPropertyOptional({
     type: Number,
     description:
