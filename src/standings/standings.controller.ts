@@ -1,15 +1,24 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { StandingsService } from './standings.service';
-import { RacingDto } from './dtos/racing.dto';
 import { Serialize } from 'src/interceptors/serialize.interceptor';
+import { BoardDetailReqDto } from './dtos/board-detail.req.dto';
+import { BoardDetailResDto } from './dtos/board-detail.res.dto';
+import { TopBoardReqDto } from './dtos/top-board.req.dto';
+import { TopBoardResDto } from './dtos/top-board.res.dto';
 
 @Controller('standings')
-@Serialize(RacingDto)
 export class StandingsController {
   constructor(private standingsService: StandingsService) {}
 
   @Get()
-  getEstimate() {
-    return this.standingsService.getRacing();
+  @Serialize(TopBoardResDto)
+  getRacing(@Query() query: TopBoardReqDto) {
+    return this.standingsService.topBoard(query);
+  }
+
+  @Get('/grand_prix')
+  @Serialize(BoardDetailResDto)
+  getRacingDetail(@Query() query: BoardDetailReqDto) {
+    return this.standingsService.boardDetail(query);
   }
 }

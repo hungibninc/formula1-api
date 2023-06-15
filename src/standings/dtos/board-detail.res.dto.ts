@@ -1,6 +1,12 @@
 import { Expose } from 'class-transformer';
 
-export class RacingDto {
+export class BoardDetailResDto {
+  @Expose()
+  grand_prix: string;
+
+  @Expose()
+  racing_date: string;
+
   @Expose()
   position: string;
 
@@ -12,12 +18,6 @@ export class RacingDto {
 
   @Expose()
   team: string;
-
-  @Expose()
-  grand_prix: string;
-
-  @Expose()
-  racing_date: string;
 
   @Expose()
   laps: number;
