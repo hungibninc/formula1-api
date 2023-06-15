@@ -72,7 +72,7 @@ password: 'change_to_your_database_password',
 yarn typeorm migration:run -- -d ./data-source.ts
 ```
 
-- Import sample data from sample-data.sql file in the root directory
+- Import sample data from sample-data.sql file in the root directory, it contains Race Results and Driver Standings for 2 years 2022 and 2023
 
 ## Running the app
 
@@ -85,4 +85,25 @@ $ yarn start:dev
 
 # production mode
 $ yarn start:prod
+```
+
+## Eexecution
+
+### Tools for implementing the specification
+
+While the application is running, open your browser and navigate to 
+
+```
+http://localhost:3000/api
+```
+
+You should see OpenAPI specification and tools for implementing the specification
+
+### Or get the content from the following APIs
+
+```
+- List of Races: http://localhost:3000/?year=2022
+- List of Drivers: http://localhost:3000/driver?year=2022
+- Race Results: http://localhost:3000/standings?year=2022
+- Driver Standings: http://localhost:3000/standings/ranking?year=2022
 ```
