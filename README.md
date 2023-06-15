@@ -108,9 +108,30 @@ You should see OpenAPI specification and tools for implementing the specificatio
 
 ### Or get the content from the following APIs
 
+- List of Races
+
 ```
-- List of Races: http://localhost:3000/?year=2022
-- List of Drivers: http://localhost:3000/driver?year=2022
-- Race Results: http://localhost:3000/standings?year=2022
-- Driver Standings: http://localhost:3000/standings/ranking?year=2022
+- http://localhost:3000/?year=2022
+- http://localhost:3000/?year=2023&driver_name=Max%20Verstappen
+```
+
+- List of Drivers
+  
+```
+- http://localhost:3000/driver?year=2022
+- http://localhost:3000/driver?year=2023&grand_name=Bahrain
+```
+
+- Race Results
+
+```
+http://localhost:3000/standings?year=2022
+```
+
+- Driver Standing
+  
+```
+- http://localhost:3000/standings/ranking?year=2022
+- http://localhost:3000/standings/ranking?year=2023&grand_name=Bahrain
+- http://localhost:3000/standings/ranking?year=2023&grand_name=Bahrain&driver_name=Max%20Verstappen
 ```
