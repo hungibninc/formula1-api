@@ -2,6 +2,9 @@ import { Expose } from 'class-transformer';
 
 export class TopBoardResDto {
   @Expose()
+  id: number;
+
+  @Expose()
   grand_prix: string;
 
   @Expose()

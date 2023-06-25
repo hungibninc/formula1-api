@@ -2,6 +2,9 @@ import { Expose } from 'class-transformer';
 
 export class BoardDetailResDto {
   @Expose()
+  id: number;
+
+  @Expose()
   position: string;
 
   @Expose()
