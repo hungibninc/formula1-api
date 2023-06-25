@@ -18,7 +18,8 @@ export class StandingsService {
 
     const query = this.repo
       .createQueryBuilder()
-      .select('DISTINCT grand_prix', 'grand_prix');
+      .select('DISTINCT id', 'id')
+      .addSelect('grand_prix');
     query.andWhere('YEAR(racing_date) = :year', { year });
     if (driver_name) {
       query.andWhere('driver=:driver_name', { driver_name });
@@ -31,7 +32,8 @@ export class StandingsService {
 
     const query = this.repo
       .createQueryBuilder()
-      .select('DISTINCT driver', 'driver');
+      .select('DISTINCT id', 'id')
+      .addSelect('driver');
     query.andWhere('YEAR(racing_date) = :year', { year });
     if (grand_name) {
       query.andWhere('grand_prix=:grand_name', { grand_name });
@@ -55,7 +57,8 @@ export class StandingsService {
 
     if (grand_name && driver_name) {
       query
-        .select('grand_prix')
+        .select('id')
+        .addSelect('grand_prix')
         .addSelect('racing_date')
         .addSelect('team')
         .addSelect('points');
@@ -66,7 +69,8 @@ export class StandingsService {
     } else if (grand_name) {
       //  driver_name is empty
       query
-        .select('position')
+        .select('id')
+        .addSelect('position')
         .addSelect('license_plate')
         .addSelect('driver')
         .addSelect('team')
@@ -80,7 +84,8 @@ export class StandingsService {
     } else if (driver_name) {
       //  grand_name is empty
       query
-        .select('grand_prix')
+        .select('id')
+        .addSelect('grand_prix')
         .addSelect('racing_date')
         .addSelect('team')
         .addSelect('points');
@@ -90,7 +95,8 @@ export class StandingsService {
     } else {
       //  grand_name and driver_name are empty
       query
-        .select('driver')
+        .select('id')
+        .addSelect('driver')
         .addSelect('nationality')
         .addSelect('team')
         .addSelect('SUM(standing.points)', 'points');
