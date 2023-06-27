@@ -86,7 +86,7 @@ export class StandingsService {
         .addSelect('team')
         .addSelect('laps')
         .addSelect('time_retire')
-        .addSelect('SUM(standing.points)', 'points');
+        .addSelect('SUM(points)', 'points');
       query.andWhere('YEAR(racing_date) = :year', { year });
       query.andWhere('grand_prix=:grand_name', { grand_name });
       query.groupBy('driver');
@@ -108,7 +108,7 @@ export class StandingsService {
         .select('driver')
         .addSelect('nationality')
         .addSelect('team')
-        .addSelect('SUM(standing.points)', 'points');
+        .addSelect('SUM(points)', 'points');
       query.andWhere('YEAR(racing_date) = :year', { year });
 
       query.groupBy('driver');
@@ -147,14 +147,14 @@ export class StandingsService {
       query
         .select('grand_prix')
         .addSelect('racing_date')
-        .addSelect('SUM(standing.points)', 'points');
+        .addSelect('SUM(points)', 'points');
       query.andWhere('YEAR(racing_date) = :year', { year });
       query.andWhere('team=:team', { team });
       query.groupBy('grand_prix');
       query.orderBy('racing_date', 'ASC');
     } else {
       //  grand_name and driver_name are empty
-      query.select('team').addSelect('SUM(standing.points)', 'points');
+      query.select('team').addSelect('SUM(points)', 'points');
       query.andWhere('YEAR(racing_date) = :year', { year });
       query.groupBy('team');
       query.orderBy('points', 'DESC');

@@ -13,7 +13,6 @@ switch (process.env.NODE_ENV) {
       port: 3306,
       username: 'root',
       password: '',
-      logging: true,
     });
     break;
   case 'production':
