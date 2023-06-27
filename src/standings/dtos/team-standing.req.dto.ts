@@ -4,7 +4,7 @@ import { Transform } from 'class-transformer';
 
 const date = new Date();
 
-export class DriverReqDto {
+export class TeamStandingReqDto {
   @ApiPropertyOptional({
     type: Number,
     description:
@@ -23,11 +23,11 @@ export class DriverReqDto {
   @ApiPropertyOptional({
     type: String,
     description:
-      'This is the name of the driver and can be optional. Result will be searched on all drivers if empty',
-    default: 'Alexander Albon',
+      'This is the name of the team and can be optional. Result will be searched on all teams if empty',
+    default: 'RED BULL RACING HONDA RBPT',
   })
   @Transform(({ value }) => value.toLowerCase())
   @IsString()
   @IsOptional()
-  driver_name: string;
+  team: string;
 }

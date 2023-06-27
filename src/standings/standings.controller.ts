@@ -10,6 +10,8 @@ import { DriverReqDto } from './dtos/driver.req.dto';
 import { DriverResDto } from './dtos/driver.res.dto';
 import { RankingReqDto } from './dtos/ranking.req.dto';
 import { RankingResDto } from './dtos/ranking.res.dto';
+import { TeamStandingResDto } from './dtos/team-standing.res.dto';
+import { TeamStandingReqDto } from './dtos/team-standing.req.dto';
 
 @Controller('standings')
 export class StandingsController {
@@ -36,6 +38,27 @@ export class StandingsController {
     return this.standingsService.getRanking(query);
   }
 
+  @Get('/driver')
+  @ApiResponse({
+    status: 200,
+    description:
+      'Returns the result of a driver filtered by year and driver name',
+  })
+  @Serialize(DriverResDto)
+  getDriver(@Query() query: DriverReqDto) {
+    return this.standingsService.driverStandings(query);
+  }
+
+  @Get('/team')
+  @ApiResponse({
+    status: 200,
+    description: 'Returns the result of a team filtered by year and team name',
+  })
+  @Serialize(TeamStandingResDto)
+  getStandingTeam(@Query() query: TeamStandingReqDto) {
+    return this.standingsService.teamStandings(query);
+  }
+
   /* @Get('/race')
   @ApiResponse({
     status: 200,
@@ -45,14 +68,5 @@ export class StandingsController {
   getRacingDetail(@Query() query: BoardDetailReqDto) {
     return this.standingsService.boardDetail(query);
   }
-
-  @Get('/driver')
-  @ApiResponse({
-    status: 200,
-    description: 'Driver Standings by year or races',
-  })
-  @Serialize(DriverResDto)
-  getDriver(@Query() query: DriverReqDto) {
-    return this.standingsService.driverStandings(query);
-  } */
+  */
 }

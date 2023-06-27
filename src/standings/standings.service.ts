@@ -8,6 +8,9 @@ import { TopBoardReqDto } from './dtos/top-board.req.dto';
 // import { DriverReqDto } from './dtos/driver.req.dto';
 import { RankingReqDto } from './dtos/ranking.req.dto';
 import { DriverListReqDto } from './dtos/driver.list.req.dto';
+import { DriverReqDto } from './dtos/driver.req.dto';
+import { TeamReqDto } from './dtos/team.req.dto';
+import { TeamStandingReqDto } from './dtos/team-standing.req.dto';
 
 @Injectable()
 export class StandingsService {
@@ -36,6 +39,17 @@ export class StandingsService {
     if (grand_name) {
       query.andWhere('grand_prix=:grand_name', { grand_name });
     }
+    return query.getRawMany();
+  }
+
+  getTeam({ year }: TeamReqDto) {
+    if (!year) year = new Date().getFullYear();
+
+    const query = this.repo
+      .createQueryBuilder()
+      .select('DISTINCT team', 'team');
+    query.where('YEAR(racing_date) = :year', { year });
+
     return query.getRawMany();
   }
 
@@ -77,6 +91,7 @@ export class StandingsService {
       query.andWhere('grand_prix=:grand_name', { grand_name });
       query.groupBy('driver');
       query.orderBy('points', 'DESC');
+      query.addOrderBy('position', 'ASC');
     } else if (driver_name) {
       //  grand_name is empty
       query
@@ -103,6 +118,51 @@ export class StandingsService {
     return query.getRawMany();
   }
 
+  driverStandings({ year, driver_name }: DriverReqDto) {
+    if (!year) year = new Date().getFullYear();
+
+    const query = this.repo
+      .createQueryBuilder('standing')
+      .select('grand_prix')
+      .addSelect('racing_date')
+      .addSelect('team')
+      .addSelect('position')
+      .addSelect('points');
+    query.where('YEAR(racing_date) = :year', { year });
+    if (driver_name) {
+      query.andWhere('driver=:driver_name', { driver_name });
+    }
+    query.orderBy('racing_date', 'ASC');
+
+    return query.getRawMany();
+  }
+
+  teamStandings({ year, team }: TeamStandingReqDto) {
+    if (!year) year = new Date().getFullYear();
+
+    const query = this.repo.createQueryBuilder();
+
+    if (team) {
+      //  driver_name is empty
+      query
+        .select('grand_prix')
+        .addSelect('racing_date')
+        .addSelect('SUM(standing.points)', 'points');
+      query.andWhere('YEAR(racing_date) = :year', { year });
+      query.andWhere('team=:team', { team });
+      query.groupBy('grand_prix');
+      query.orderBy('racing_date', 'ASC');
+    } else {
+      //  grand_name and driver_name are empty
+      query.select('team').addSelect('SUM(standing.points)', 'points');
+      query.andWhere('YEAR(racing_date) = :year', { year });
+      query.groupBy('team');
+      query.orderBy('points', 'DESC');
+    }
+
+    return query.getRawMany();
+  }
+
   /* boardDetail({ year, name }: BoardDetailReqDto) {
     if (!year) year = new Date().getFullYear();
 
@@ -115,22 +175,5 @@ export class StandingsService {
     return query.getRawMany();
   }
 
-  driverStandings({ year, grand_name, driver_name }: DriverReqDto) {
-    if (!year) year = new Date().getFullYear();
-
-    const query = this.repo
-      .createQueryBuilder('standing')
-      .select('driver')
-      .addSelect('nationality')
-      .addSelect('team')
-      .addSelect('SUM(standing.points)', 'points');
-    query.andWhere('YEAR(racing_date) = :year', { year });
-    if (grand_name) {
-      query.andWhere('grand_prix=:grand_name', { grand_name });
-    }
-    query.groupBy('driver');
-    query.orderBy('points', 'DESC');
-
-    return query.getRawMany();
-  } */
+  */
 }

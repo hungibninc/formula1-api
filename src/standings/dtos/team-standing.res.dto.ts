@@ -1,6 +1,6 @@
 import { Expose } from 'class-transformer';
 
-export class DriverResDto {
+export class TeamStandingResDto {
   @Expose()
   grand_prix: string;
 
@@ -9,9 +9,6 @@ export class DriverResDto {
 
   @Expose()
   team: string;
-
-  @Expose()
-  position: string;
 
   @Expose()
   points: number;
